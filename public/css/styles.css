@@ -1,0 +1,44 @@
+body { font-family: system-ui, Arial, sans-serif; margin: 0; color: #111; }
+.auth-container { max-width: 360px; margin: 10vh auto; padding: 24px; border: 1px solid #ddd; border-radius: 12px; }
+.auth-container h1 { margin: 0 0 16px; }
+.tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+.tabs button { flex: 1; padding: 8px; border: 1px solid #ccc; background: #f5f5f5; border-radius: 8px; cursor: pointer; }
+.tabs button.active { background: #111; color: #fff; }
+.form { display: none; flex-direction: column; gap: 8px; }
+.form.active { display: flex; }
+.form input { padding: 10px; border: 1px solid #ccc; border-radius: 8px; }
+.form button { padding: 10px; background: #111; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
+.error { color: #c00; margin-top: 8px; min-height: 20px; }
+
+.app-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid #eee; }
+.app-container { display: grid; grid-template-columns: 280px 1fr; height: calc(100vh - 57px); }
+.sidebar { border-right: 1px solid #eee; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+.sidebar input { padding: 8px; border: 1px solid #ccc; border-radius: 8px; }
+.sidebar ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 4px; }
+.sidebar li { display: flex; align-items: center; justify-content: space-between; padding: 8px; border-radius: 8px; cursor: pointer; }
+.sidebar li:hover { background: #f7f7f7; }
+
+.chat { display: flex; flex-direction: column; height: 100%; }
+.hidden { display: none; }
+.chat-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-bottom: 1px solid #eee; }
+.messages { flex: 1; overflow: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px; background: #fafafa; }
+.message { max-width: 70%; padding: 8px 10px; border-radius: 10px; }
+.message.me { background: #d9fdd3; align-self: flex-end; }
+.message.them { background: #fff; border: 1px solid #eee; }
+.message img { max-width: 260px; border-radius: 8px; display: block; }
+.message-form { display: flex; gap: 8px; padding: 8px; border-top: 1px solid #eee; }
+.message-form input[type="text"], .message-form input[type="email"], #message-input { flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 8px; }
+.message-form button { padding: 8px 12px; border: none; background: #111; color: white; border-radius: 8px; cursor: pointer; }
+
+.call-area { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 8px; }
+.call-area video { width: 100%; background: #000; border-radius: 8px; min-height: 160px; }
+
+.incoming { position: fixed; inset: 0; display: grid; place-items: center; background: rgba(0,0,0,0.4); }
+.incoming .card { background: white; padding: 16px; border-radius: 12px; min-width: 260px; text-align: center; }
+.incoming .buttons { display: flex; justify-content: center; gap: 12px; margin-top: 12px; }
+.incoming .green { background: #16a34a; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; }
+.incoming .red { background: #dc2626; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; }
+
+.notifications { padding: 16px; }
+.notifications ul { list-style: none; padding: 0; }
+.notifications li { padding: 8px; border-bottom: 1px solid #eee; }
