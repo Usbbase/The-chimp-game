@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Login • Chat</title>
+	<link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+	<div class="auth-container">
+		<h1>Welcome</h1>
+		<div class="tabs">
+			<button id="tab-login" class="active">Login</button>
+			<button id="tab-register">Register</button>
+		</div>
+		<form id="login-form" class="form active">
+			<input type="email" id="login-email" placeholder="Email" required />
+			<input type="password" id="login-password" placeholder="Password" required />
+			<button type="submit">Login</button>
+		</form>
+		<form id="register-form" class="form">
+			<input type="email" id="register-email" placeholder="Email" required />
+			<input type="password" id="register-password" placeholder="Password" required />
+			<button type="submit">Create account</button>
+		</form>
+		<p id="auth-error" class="error"></p>
+	</div>
+	<script>
+		function saveToken(token){ localStorage.setItem('token', token) }
+		function getToken(){ return localStorage.getItem('token') }
+		if(getToken()){ window.location.href = '/app.html' }
+
+		document.getElementById('tab-login').onclick = () => {
+			document.getElementById('tab-login').classList.add('active')
+			document.getElementById('tab-register').classList.remove('active')
+			document.getElementById('login-form').classList.add('active')
+			document.getElementById('register-form').classList.remove('active')
+		}
+		document.getElementById('tab-register').onclick = () => {
+			document.getElementById('tab-register').classList.add('active')
+			document.getElementById('tab-login').classList.remove('active')
+			document.getElementById('register-form').classList.add('active')
+			document.getElementById('login-form').classList.remove('active')
+		}
+
+		document.getElementById('login-form').addEventListener('submit', async (e) => {
+			e.preventDefault()
+			const email = document.getElementById('login-email').value
+			const password = document.getElementById('login-password').value
+			try{
+				const res = await fetch('/api/login', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ email, password }) })
+				const data = await res.json()
+				if(!res.ok) throw new Error(data.error || 'Login failed')
+				saveToken(data.token)
+				window.location.href = '/app.html'
+			}catch(err){ document.getElementById('auth-error').textContent = err.message }
+		})
+
+		document.getElementById('register-form').addEventListener('submit', async (e) => {
+			e.preventDefault()
+			const email = document.getElementById('register-email').value
+			const password = document.getElementById('register-password').value
+			try{
+				const res = await fetch('/api/register', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ email, password }) })
+				const data = await res.json()
+				if(!res.ok) throw new Error(data.error || 'Register failed')
+				saveToken(data.token)
+				window.location.href = '/app.html'
+			}catch(err){ document.getElementById('auth-error').textContent = err.message }
+		})
+	</script>
+</body>
+</html>

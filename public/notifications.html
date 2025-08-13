@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Notifications</title>
+	<link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+	<header class="app-header">
+		<h2>Notifications</h2>
+		<div class="actions">
+			<a href="/app.html">⬅ Back</a>
+		</div>
+	</header>
+	<main class="notifications">
+		<ul id="notif-list"></ul>
+	</main>
+	<script>
+		function getToken(){ return localStorage.getItem('token') }
+		if(!getToken()) window.location.href = '/'
+		async function load(){
+			const res = await fetch('/api/notifications', { headers: { Authorization: 'Bearer ' + getToken() } })
+			const data = await res.json()
+			const list = document.getElementById('notif-list')
+			list.innerHTML = ''
+			for(const n of data.notifications){
+				const li = document.createElement('li')
+				li.textContent = n.type === 'message' ? `Message from ${n.fromId}` : `Call from ${n.fromId}`
+				list.appendChild(li)
+			}
+		}
+		load()
+	</script>
+</body>
+</html>
